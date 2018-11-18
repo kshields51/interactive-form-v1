@@ -17,36 +17,39 @@ $('#title').on('change', (function(event) {
  dynamically adding classes upon page load to t-shirt styles using jQuery to make the Color list filterable
  ****************** */
 const $selected = $('<option selected="selected">Please Select a T-shirt theme</option>')
+
+
+
 $('#color').prepend($selected);
 $('#color').children().each(function() {
-    console.log(this);
     if($("not:this:contains(Please)")) {
         $(this).hide();//maybe this works
     }
 
 })
 $('#color').children().each(function() {
-     console.log(this)
      if ($(this).text().includes('Puns')) {
          $(this).addClass('puns')
      } else if ($("not:this:contains(Puns)")) {
          $(this).addClass('love')
      }
 })
-
-
-
-/******************
- Tshirt Info attempting a ternery operator
- ****************** */
-function hide (attribute) {
-    $(attribute).hide()
-}
-
 $('#design').on('change', (function(event) {
     const clicked = event.target.value;
     if (clicked == 'js puns') {
-        $('.love_style').hide();
+        $('.puns').show();
+        $('.love').hide();
+        $($selected).hide();
+    } else if (clicked == 'heart js') {
+        $('.love').show();
+        $('.puns').hide();
+        $($selected).hide();
+    } else if (clicked == 'Select Theme') {
+        $('#color').children().each(function() {
+            if($("not:this:contains(Please)")) {
+                $(this).hide();
+            }
+        })
     }
    
     
@@ -58,6 +61,20 @@ $('#design').on('change', (function(event) {
  Greying out workshops that are at the same day and time of selected. Upon uncheck competing activities are no
  longer disabled
  ****************** */
+
+$('fieldset').on('change', function(event){
+    const checkboxText = $(event.target).parent().text()
+    const isChecked = event.target.checked
+    console.log(checkboxText);
+    $('.activities').children().each(function() {
+        if($(this).text() === checkboxText && isChecked) {
+            console.log('hello')
+            event.preventDefault();
+            //alert('Activity with the same timeslot already selected. Please choose a different activity.')
+        }
+    })
+
+})
 
  /******************
  Running total cost of all selected activities
