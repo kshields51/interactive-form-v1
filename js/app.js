@@ -182,25 +182,91 @@ $('#payment').on('change', (function(event) {
  ****************** */
 
 function nameValidator (name) {
-    /^[^\s]/.test() //newline might mess this up
+    return /^[^\s]/.test(name) //newline might mess this up
 
 }   
 
 function emailValidator (email) {
-    /^[A-Z|a-z|0-9].*\@[A-Z|a-z|0-9].*\.[A-Z|a-z|0-9].*/.test()
+    return /^[A-Z|a-z|0-9].*\@[^\-]*[A-Z|a-z|0-9].*[^-\.]*\.[A-Z|a-z|0-9].*/.test(email)
 } 
 
 function creditCardNumberValidator (creditCardNumber) {
-    
+    return /^\d{13,16}$/.test(creditCardNumber)
 } 
 
 function zipValidator (zip) {
-    
+    return /^\d{5}$/.test(zip)
 } 
 
 function cvvValidator (cvv) {
-    
+    return /^\d{3}$/.test(cvv)
 } 
+
+
+$('button').on('click', function(event){
+    
+    const nameTest = nameValidator($('#name').val());
+    const emailTest = emailValidator($('#mail').val());
+    const creditTest = creditCardNumberValidator($('#cc-num').val());
+    const zipTest = zipValidator($('#zip').val());
+    const cvvTest = cvvValidator($('#cvv').val());
+
+    if (nameTest && emailTest && creditTest && zipTest && cvvTest === true && $('input:checkbox:checked').length > 0) {
+        console.log('looks valid to me')}
+
+    else  {
+        event.preventDefault();
+        if (nameTest === true) {
+            $('#name').remove().css('border', '2px solid red');
+        } else {
+            $('#name').css('border', '2px solid red');
+        }
+        if (emailTest === true) {
+        } else {
+            $('#mail').css('border', '2px solid red');
+        }
+        if (creditTest === true) {
+        } else {
+            $('#cc-num').css('border', '2px solid red');
+        }
+        if (zipTest === true) {
+        } else {
+            $('#zip').css('border', '2px solid red');
+        }
+        if (cvvTest === true) {
+        } else {
+            $('#cvv').css('border', '2px solid red');
+        }
+        if ($('input:checkbox:checked').length > 0) {
+        } else {
+            $('.activities').children().eq(1).css('border', '2px solid red')
+            $('.activities').children().eq(2).css('border', '2px solid red')
+            $('.activities').children().eq(3).css('border', '2px solid red')
+            $('.activities').children().eq(4).css('border', '2px solid red')
+            $('.activities').children().eq(5).css('border', '2px solid red')
+            $('.activities').children().eq(6).css('border', '2px solid red')
+            $('.activities').children().eq(7).css('border', '2px solid red')
+
+            //$('.activities').prepend($('<h1>Please select at least 1 checkbox</h1>'))
+        }
+
+    
+    }
+    });
+    
+    
+    
+    //and at least one checkbox must be selected
+
+//     if(nameTest||emailTest||creditTest||zipTest||cvvTest|| === false) {
+//         preventDefault(cannot submit)
+//     } else {
+//         submit
+//     }
+
+// })
+
+
 
  /******************
  Form validation messages 
