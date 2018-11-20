@@ -67,7 +67,7 @@ $('#design').on('change', (function(event) {
 
 /******************
  Greying out workshops that are at the same day and time of selected. Upon uncheck competing activities are no
- longer disabled
+ longer disabled cost is displayed
  ****************** */
 const activities = $('.activities').children()
 const finalCost =$('.activities').after('<h1 class="total-cost"></h1>')
@@ -85,7 +85,6 @@ $('fieldset').children().on('change', function(event){
             return cost
         }
     }
-    //im trying to create and append after the paragraph a total cost line that is dynamcically updated i have it but its not being updated
     console.log(totalCost()+ 'hi')
     const $postedCost = $('<p class="total-cost">Total Cost: $'+(totalCost()).toString()+'</p>')
 
@@ -141,25 +140,38 @@ $('fieldset').children().on('change', function(event){
         default:
             // null
 }}
-
 );
-
- /******************
- Running total cost of all selected activities
- ****************** */
-console.log('hello')
-//console.log($('input:checkbox:checked').length);
-
-
-
-
-
 
  /******************
  Display payment selections basesd on the payment option chosen in the select menu. Credit card is default.
  When user selects PayPal, PayPal information should be displayed and rest hidden
  same for bitcoin
  ****************** */
+
+ //select it and prepend it
+const creditPreSelect = $('#payment').children().eq(1);
+$('#payment').prepend(creditPreSelect);
+$('#payment').children().eq(1).remove();
+$('div').children(8).eq(22).hide();
+$('div').children(8).eq(21).hide();
+$('#payment').on('change', (function(event) {
+    const clicked = event.target.value;
+    console.log(clicked)
+    if (clicked == 'credit card') {
+        $('#credit-card').fadeIn(1000);
+        $('div').children(8).eq(22).fadeOut();
+        $('div').children(8).eq(21).fadeOut();
+    } else if (clicked == 'paypal') {
+        $('#credit-card').fadeOut(1000);
+        $('div').children(8).eq(22).fadeOut(1000);
+        $('div').children(8).eq(21).fadeIn(1000);
+    } else if (clicked == 'bitcoin') {
+        $('#credit-card').fadeOut(1000);
+        $('div').children(8).eq(22).fadeIn(1000)
+        $('div').children(8).eq(21).fadeOut(1000);}}))
+        
+
+
 
  /******************
  Validation 
@@ -168,6 +180,27 @@ console.log('hello')
  must choose at least one under "register for activities"
  properly formatted credit card
  ****************** */
+
+function nameValidator (name) {
+    /^[^\s]/.test() //newline might mess this up
+
+}   
+
+function emailValidator (email) {
+    /^[A-Z|a-z|0-9].*\@[A-Z|a-z|0-9].*\.[A-Z|a-z|0-9].*/.test()
+} 
+
+function creditCardNumberValidator (creditCardNumber) {
+    
+} 
+
+function zipValidator (zip) {
+    
+} 
+
+function cvvValidator (cvv) {
+    
+} 
 
  /******************
  Form validation messages 
