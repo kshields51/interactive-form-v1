@@ -211,31 +211,37 @@ $('button').on('click', function(event){
     const zipTest = zipValidator($('#zip').val());
     const cvvTest = cvvValidator($('#cvv').val());
 
-    if (nameTest && emailTest && creditTest && zipTest && cvvTest === true && $('input:checkbox:checked').length > 0) {
-        console.log('looks valid to me')}
+    if (nameTest && emailTest  && $('input:checkbox:checked').length > 0) {
+        if($('#credit-card').is(":hidden") === true) {
+        
+        console.log('looks valid to me')}}
 
-    else  {
-        event.preventDefault();
+    else {
+        
         if (nameTest === true) {
-            $('#name').remove().css('border', '2px solid red');
-        } else {
-            $('#name').css('border', '2px solid red');
+        } else {$('#name').css('border', '2px solid red');
+        event.preventDefault();
+
         }
         if (emailTest === true) {
         } else {
             $('#mail').css('border', '2px solid red');
+            event.preventDefault();
         }
         if (creditTest === true) {
         } else {
             $('#cc-num').css('border', '2px solid red');
+            event.preventDefault();
         }
         if (zipTest === true) {
         } else {
             $('#zip').css('border', '2px solid red');
+            event.preventDefault();
         }
         if (cvvTest === true) {
         } else {
             $('#cvv').css('border', '2px solid red');
+            event.preventDefault();
         }
         if ($('input:checkbox:checked').length > 0) {
         } else {
@@ -246,11 +252,12 @@ $('button').on('click', function(event){
             $('.activities').children().eq(5).css('border', '2px solid red')
             $('.activities').children().eq(6).css('border', '2px solid red')
             $('.activities').children().eq(7).css('border', '2px solid red')
+            event.preventDefault();
 
             //$('.activities').prepend($('<h1>Please select at least 1 checkbox</h1>'))
         }
 
-    
+        
     }
     });
     
