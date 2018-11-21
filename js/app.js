@@ -8,8 +8,8 @@ const selected = document.getElementById('title').children[5] //uses vanilla jav
 $('#title').on('change', (function(event) { //When the title is changed to other this makes the text block visible with a fade in animation
     const clicked = event.target.value;
     if (clicked == "other") {
-        $('label[for="other-title"]').fadeIn(1000)
-        $("#other-title").fadeIn(1000)
+        $('label[for="other-title"]').fadeIn(500)
+        $("#other-title").fadeIn(500)
     }}));
 
 /******************
@@ -55,7 +55,7 @@ $('#design').on('change', (function(event) { //When user selects a shirt theme t
  ****************** */
 const activities = $('.activities').children() //targets all the workshop inputs
 const finalCost =$('.activities').after('<h1 class="total-cost"></h1>') //variable that appends a final cost to the bottom of the activities area
-$('fieldset').children().on('change', function(event){ //this is the function that acts on each individual checkbox and contains the logic to stop multiple conflicting time slots from being selected
+$('.activities').children().on('change', function(event){ //this is the function that acts on each individual checkbox and contains the logic to stop multiple conflicting time slots from being selected
     const targetIndex = ($(event.target).parent().index()) //this is the index of the checkbox that will be used in the switch function
     function totalCost () { // this function calculates the total cost that is displayed below the activities section
         let cost = $('input:checkbox:checked').length * 100
@@ -136,17 +136,17 @@ $('div').children(8).eq(21).hide();//these two lines hide the instructions for p
 $('#payment').on('change', (function(event) { //this is the logic that dynamically changes what payment information is seen when user selects credit card, paypal, or bitcoin
     const clicked = event.target.value;
     if (clicked == 'credit card') {
-        $('#credit-card').fadeIn(1000);
+        $('#credit-card').fadeIn(500);
         $('div').children(8).eq(22).fadeOut();
         $('div').children(8).eq(21).fadeOut();
     } else if (clicked == 'paypal') {
-        $('#credit-card').fadeOut(1000);
-        $('div').children(8).eq(22).fadeOut(1000);
-        $('div').children(8).eq(21).fadeIn(1000);
+        $('#credit-card').fadeOut(500);
+        $('div').children(8).eq(22).fadeOut(500);
+        $('div').children(8).eq(21).fadeIn(500);
     } else if (clicked == 'bitcoin') {
-        $('#credit-card').fadeOut(1000);
-        $('div').children(8).eq(22).fadeIn(1000)
-        $('div').children(8).eq(21).fadeOut(1000);}}))
+        $('#credit-card').fadeOut(500);
+        $('div').children(8).eq(22).fadeIn(500)
+        $('div').children(8).eq(21).fadeOut(500);}}))
         
 
 
@@ -185,10 +185,10 @@ $('button').on('click', function(event){ //event handler for when the button to 
     const zipTest = zipValidator($('#zip').val());
     const cvvTest = cvvValidator($('#cvv').val()); //these variables hold the boolean values that are the results of the validator functions
 
-    if (nameTest && emailTest  && $('input:checkbox:checked').length > 0) { // this checks to see if a checkbox is checked and whether the name and email boxes are correct
-        if($('#credit-card').is(":hidden") === true) { //this checkes to see if the payment selection is anything but credit card
+    if (nameTest && emailTest  && $('input:checkbox:checked').length > 0 && $('#credit-card').is(":hidden") === true) { // this checks to see if a checkbox is checked and whether the name and email boxes are correct
+         //this checkes to see if the payment selection is anything but credit card
         
-        console.log('looks valid to me')}} //FORM IS SUBMITTED
+        console.log('looks valid to me')} //FORM IS SUBMITTED
 
     else { 
         
@@ -202,18 +202,18 @@ $('button').on('click', function(event){ //event handler for when the button to 
             $('#mail').css('border', '2px solid red');
             event.preventDefault();
         }
-        if (creditTest === true) { //checks to see if the credit card number is correct if it is not it adds appropriate invalid indicator
-        } else {
+        if (creditTest === true ) { //checks to see if the credit card number is correct if it is not it adds appropriate invalid indicator
+        } else if (($('#credit-card').is(":hidden")) === false){
             $('#cc-num').css('border', '2px solid red');
             event.preventDefault();
         }
         if (zipTest === true) { //checks to see if the zip is correct if it is not it adds appropriate invalid indicator
-        } else {
+        } else if (($('#credit-card').is(":hidden")) === false) {
             $('#zip').css('border', '2px solid red');
             event.preventDefault();
         }
         if (cvvTest === true) { //checks to see if the cvv is correct if it is not it adds appropriate invalid indicator
-        } else {
+        } else if (($('#credit-card').is(":hidden")) === false) {
             $('#cvv').css('border', '2px solid red');
             event.preventDefault();
         }
